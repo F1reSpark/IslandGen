@@ -12,6 +12,7 @@ public class WorldGenerator {
     private int worldMapRows, worldMapColumns;
 
     private int[][] worldIntMap;
+    private int s;
 
     public WorldGenerator (int worldMapRows, int worldMapColumns) {
         this.worldMapRows = worldMapRows;
@@ -20,7 +21,7 @@ public class WorldGenerator {
         worldIntMap = new int[worldMapRows][worldMapColumns];
 
         //call methods to build 2D array
-        randomize();
+        seedWorld();
 
         Gdx.app.error("WorldGenerator", "WorldGenerator(WorldTile[][][])");
     }
@@ -38,10 +39,17 @@ public class WorldGenerator {
         return returnString;
     }
 
-    public void randomize() {
+    public void seedWorld() {
         for(int r = 0; r < worldIntMap.length; r++) {
             for(int c = 0; c < worldIntMap[r].length; c++) {
-                worldIntMap[r][c] = MathUtils.random(TileHandler.getTileHandler().getWorldTileArray().size-1);
+                if(MathUtils.random(0,5) == 5 && s < 7){
+                    worldIntMap[r][c] = 5;
+                    s++;
+                } else{
+                    worldIntMap[r][c] = 0;
+                }
+
+                //worldIntMap[r][c] = MathUtils.random(TileHandler.getTileHandler().getWorldTileArray().size-1);
             }
         }
     }
