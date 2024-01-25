@@ -2,7 +2,9 @@ package com.bmhs.gametitle.game.assets.worlds;
 
 import com.badlogic.gdx.Gdx;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.bmhs.gametitle.gfx.assets.tiles.statictiles.WorldTile;
 import com.bmhs.gametitle.gfx.utils.TileHandler;
 
@@ -13,6 +15,9 @@ public class WorldGenerator {
 
     private int[][] worldIntMap;
     private int s;
+    private int xcoord;
+    private int ycoord;
+    Vector2 mapseed;
 
     public WorldGenerator (int worldMapRows, int worldMapColumns) {
         this.worldMapRows = worldMapRows;
@@ -20,9 +25,23 @@ public class WorldGenerator {
 
         worldIntMap = new int[worldMapRows][worldMapColumns];
 
-        //call methods to build 2D array
-        seedWorld();
+        Vector2 mapseed = new Vector2(MathUtils.random(worldIntMap[0].length), MathUtils.random(worldIntMap.length));
+        System.out.println(mapseed.y + " " + mapseed.x);
 
+        worldIntMap = new int[worldMapRows][worldMapColumns];
+
+        for(int r = 0; r < worldIntMap.length; r++) {
+            for (int c = 0; c < worldIntMap[r].length; c++) {
+                Vector2 tempvector = new Vector2(c, r);
+                if (tempvector.dst(mapseed) < 3){
+                    worldIntMap[r][c] = 5;
+                }
+            }
+        }
+
+        //call methods to build 2D array
+        islandBuild();
+        generateWorldTextFile();
         Gdx.app.error("WorldGenerator", "WorldGenerator(WorldTile[][][])");
     }
 
@@ -39,19 +58,49 @@ public class WorldGenerator {
         return returnString;
     }
 
-    public void seedWorld() {
+    public void islandBuild() {
+        int elevtationnum = 5;
+
         for(int r = 0; r < worldIntMap.length; r++) {
             for(int c = 0; c < worldIntMap[r].length; c++) {
-                if(MathUtils.random(0,5) == 5 && s < 7){
-                    worldIntMap[r][c] = 5;
-                    s++;
-                } else{
-                    worldIntMap[r][c] = 0;
+                while(elevtationnum < 0) {
+                    if (worldIntMap[r + 1][c] == elevtationnum) {
+                        if (MathUtils.random(0, 4) == 4) {
+                            worldIntMap[r][c] = elevtationnum;
+                        } else {
+                            worldIntMap[r][c] = elevtationnum-1;
+                        }
+                    } else if (worldIntMap[r - 1][c] == elevtationnum) {
+                        if (MathUtils.random(0, 4) == 4) {
+                            worldIntMap[r][c] = elevtationnum;
+                        } else {
+                            worldIntMap[r][c] = elevtationnum-1;
+                        }
+                    } else if (worldIntMap[r][c + 1] == elevtationnum) {
+                        if (MathUtils.random(0, 4) == 4) {
+                            worldIntMap[r][c] = elevtationnum;
+                        } else {
+                            worldIntMap[r][c] = elevtationnum-1;
+                        }
+
+                    } else if (worldIntMap[r][c - 1] == elevtationnum) {
+                        if (MathUtils.random(0, 4) == 4) {
+                            worldIntMap[r][c] = elevtationnum;
+                        } else {
+                            worldIntMap[r][c] = elevtationnum-1;
+                        }
+                    } else {
+                        worldIntMap[r][c] = 20;
+                    }
+                    //elevtationnum--;
                 }
+
 
                 //worldIntMap[r][c] = MathUtils.random(TileHandler.getTileHandler().getWorldTileArray().size-1);
             }
         }
+
+
     }
 
     public WorldTile[][] generateWorld() {
@@ -62,6 +111,10 @@ public class WorldGenerator {
             }
         }
         return worldTileMap;
+    }
+    private void generateWorldTextFile(){
+        FileHandle file = Gdx.files.local("assets/worlds/world.txt");
+        file.writeString(getWorld3DArrayToString(), false);
     }
 
 }
