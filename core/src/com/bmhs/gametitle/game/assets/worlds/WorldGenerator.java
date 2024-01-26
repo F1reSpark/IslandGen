@@ -33,8 +33,9 @@ public class WorldGenerator {
         for(int r = 0; r < worldIntMap.length; r++) {
             for (int c = 0; c < worldIntMap[r].length; c++) {
                 Vector2 tempvector = new Vector2(c, r);
-                if (tempvector.dst(mapseed) < 3){
-                    worldIntMap[r][c] = 5;
+                if (tempvector.dst(mapseed) < 1){
+                    worldIntMap[r][c] = 9;
+
                 }
             }
         }
@@ -57,9 +58,9 @@ public class WorldGenerator {
 
         return returnString;
     }
-
+    private int elevtationnum = 9;
     public void islandBuild() {
-        int elevtationnum = 5;
+
 
         for(int r = 0; r < worldIntMap.length; r++) {
             for(int c = 0; c < worldIntMap[r].length; c++) {
@@ -70,20 +71,23 @@ public class WorldGenerator {
                         } else {
                             worldIntMap[r][c] = elevtationnum-1;
                         }
-                    } else if (worldIntMap[r - 1][c] == elevtationnum) {
+                    }
+                    if (worldIntMap[r - 1][c] == elevtationnum) {
                         if (MathUtils.random(0, 4) == 4) {
                             worldIntMap[r][c] = elevtationnum;
                         } else {
                             worldIntMap[r][c] = elevtationnum-1;
                         }
-                    } else if (worldIntMap[r][c + 1] == elevtationnum) {
+                    }
+                    if (worldIntMap[r][c + 1] == elevtationnum) {
                         if (MathUtils.random(0, 4) == 4) {
                             worldIntMap[r][c] = elevtationnum;
                         } else {
                             worldIntMap[r][c] = elevtationnum-1;
                         }
 
-                    } else if (worldIntMap[r][c - 1] == elevtationnum) {
+                    }
+                    if (worldIntMap[r][c - 1] == elevtationnum) {
                         if (MathUtils.random(0, 4) == 4) {
                             worldIntMap[r][c] = elevtationnum;
                         } else {
@@ -92,7 +96,8 @@ public class WorldGenerator {
                     } else {
                         worldIntMap[r][c] = 20;
                     }
-                    //elevtationnum--;
+                    elevtationnum--;
+                    islandBuild();
                 }
 
 
