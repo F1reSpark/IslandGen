@@ -18,6 +18,7 @@ public class WorldGenerator {
     private int xcoord;
     private int ycoord;
     Vector2 mapseed;
+    private int seednum = 0;
 
     public WorldGenerator (int worldMapRows, int worldMapColumns) {
         this.worldMapRows = worldMapRows;
@@ -30,14 +31,17 @@ public class WorldGenerator {
 
         worldIntMap = new int[worldMapRows][worldMapColumns];
 
-        for(int r = 0; r < worldIntMap.length; r++) {
-            for (int c = 0; c < worldIntMap[r].length; c++) {
-                Vector2 tempvector = new Vector2(c, r);
-                if (tempvector.dst(mapseed) < 1){
-                    worldIntMap[r][c] = elevtationnum;
+        while (seednum < 9) {
+            for (int r = 0; r < worldIntMap.length; r++) {
+                for (int c = 0; c < worldIntMap[r].length; c++) {
+                    Vector2 tempvector = new Vector2(c, r);
+                    if (tempvector.dst(mapseed) < 1) {
+                        worldIntMap[r][c] = elevtationnum;
 
+                    }
                 }
             }
+            seednum++;
         }
 
         //call methods to build 2D array
@@ -58,9 +62,10 @@ public class WorldGenerator {
 
         return returnString;
     }
-    private int elevtationnum = 9;
+    private int elevtationnum = 13;
     public void islandBuild() {
-        while (elevtationnum >= 1){
+
+        while (elevtationnum > 4){
         for(int r = 1; r < worldIntMap.length-2; r++) {
             for(int c = 1; c < worldIntMap[r].length-2; c++) {
                 if (worldIntMap[r + 1][c] == elevtationnum) {
