@@ -18,30 +18,30 @@ public class WorldGenerator {
     private int xcoord;
     private int ycoord;
     Vector2 mapseed;
-    private int seednum = 0;
+
 
     public WorldGenerator (int worldMapRows, int worldMapColumns) {
         this.worldMapRows = worldMapRows;
         this.worldMapColumns = worldMapColumns;
 
-        worldIntMap = new int[worldMapRows][worldMapColumns];
-
-        Vector2 mapseed = new Vector2(MathUtils.random(worldIntMap[0].length), MathUtils.random(worldIntMap.length));
-        System.out.println(mapseed.y + " " + mapseed.x);
 
         worldIntMap = new int[worldMapRows][worldMapColumns];
 
-        while (seednum < 9) {
-            for (int r = 0; r < worldIntMap.length; r++) {
-                for (int c = 0; c < worldIntMap[r].length; c++) {
-                    Vector2 tempvector = new Vector2(c, r);
-                    if (tempvector.dst(mapseed) < 1) {
-                        worldIntMap[r][c] = elevtationnum;
+        for (int seednum = 0; seednum < 5; seednum++) {
+            Vector2 mapseed = new Vector2(MathUtils.random(worldIntMap[0].length), MathUtils.random(worldIntMap.length));
+            System.out.println(mapseed.y + " " + mapseed.x);
 
+                for (int r = 0; r < worldIntMap.length; r++) {
+                    for (int c = 0; c < worldIntMap[r].length; c++) {
+                        Vector2 tempvector = new Vector2(c, r);
+                        if (tempvector.dst(mapseed) < 1) {
+                            worldIntMap[r][c] = 13;
+
+                        }
                     }
                 }
-            }
-            seednum++;
+
+
         }
 
         //call methods to build 2D array
@@ -62,10 +62,10 @@ public class WorldGenerator {
 
         return returnString;
     }
-    private int elevtationnum = 13;
+private int elevtationnum = 13;
     public void islandBuild() {
 
-        while (elevtationnum > 4){
+        while(elevtationnum > 0){
         for(int r = 1; r < worldIntMap.length-2; r++) {
             for(int c = 1; c < worldIntMap[r].length-2; c++) {
                 if (worldIntMap[r + 1][c] == elevtationnum) {
@@ -92,15 +92,40 @@ public class WorldGenerator {
                     } else {
                         worldIntMap[r][c] = elevtationnum - 1;
                     }
-                } else {
+                } else if (worldIntMap[r + 1][c + 1] == elevtationnum) {
+                    if (MathUtils.random(0, 4) == 4) {
+                        worldIntMap[r][c] = elevtationnum;
+                    } else {
+                        worldIntMap[r][c] = elevtationnum - 1;
+                    }
+                } else if (worldIntMap[r - 1][c - 1] == elevtationnum) {
+                    if (MathUtils.random(0, 4) == 4) {
+                        worldIntMap[r][c] = elevtationnum;
+                    } else {
+                        worldIntMap[r][c] = elevtationnum - 1;
+                    }
+                } else if (worldIntMap[r - 1][c + 1] == elevtationnum) {
+                    if (MathUtils.random(0, 4) == 4) {
+                        worldIntMap[r][c] = elevtationnum;
+                    } else {
+                        worldIntMap[r][c] = elevtationnum - 1;
+                    }
+                } else if (worldIntMap[r + 1][c - 1] == elevtationnum) {
+                    if (MathUtils.random(0, 4) == 4) {
+                        worldIntMap[r][c] = elevtationnum;
+                    } else {
+                        worldIntMap[r][c] = elevtationnum - 1;
+                    }
+                }else {
                     worldIntMap[r][c] = 20;
                 }
 
             }
                 //worldIntMap[r][c] = MathUtils.random(TileHandler.getTileHandler().getWorldTileArray().size-1);
             }
-            elevtationnum--;
-            islandBuild();
+        elevtationnum--;
+
+
         }
 
 
