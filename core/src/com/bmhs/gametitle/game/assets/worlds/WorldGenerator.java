@@ -60,48 +60,44 @@ public class WorldGenerator {
     }
     private int elevtationnum = 9;
     public void islandBuild() {
-
-
+        while (elevtationnum >= 1){
         for(int r = 1; r < worldIntMap.length-2; r++) {
             for(int c = 1; c < worldIntMap[r].length-2; c++) {
-                while(elevtationnum >= 1) {
-                    if (worldIntMap[r + 1][c] == elevtationnum) {
-                        if (MathUtils.random(0, 4) == 4) {
-                            worldIntMap[r][c] = elevtationnum;
-                        } else {
-                            worldIntMap[r][c] = elevtationnum-1;
-                        }
-                    }else if (worldIntMap[r - 1][c] == elevtationnum) {
-                        if (MathUtils.random(0, 4) == 4) {
-                            worldIntMap[r][c] = elevtationnum;
-                        } else {
-                            worldIntMap[r][c] = elevtationnum-1;
-                        }
-                    }else if (worldIntMap[r][c + 1] == elevtationnum) {
-                        if (MathUtils.random(0, 4) == 4) {
-                            worldIntMap[r][c] = elevtationnum;
-                        } else {
-                            worldIntMap[r][c] = elevtationnum-1;
-                        }
-                    }else if (worldIntMap[r][c - 1] == elevtationnum) {
-                        if (MathUtils.random(0, 4) == 4) {
-                            worldIntMap[r][c] = elevtationnum;
-                        } else {
-                            worldIntMap[r][c] = elevtationnum-1;
-                        }
+                if (worldIntMap[r + 1][c] == elevtationnum) {
+                    if (MathUtils.random(0, 4) == 4) {
+                        worldIntMap[r][c] = elevtationnum;
                     } else {
-                        worldIntMap[r][c] = 20;
+                        worldIntMap[r][c] = elevtationnum - 1;
                     }
-
-
+                } else if (worldIntMap[r - 1][c] == elevtationnum) {
+                    if (MathUtils.random(0, 4) == 4) {
+                        worldIntMap[r][c] = elevtationnum;
+                    } else {
+                        worldIntMap[r][c] = elevtationnum - 1;
+                    }
+                } else if (worldIntMap[r][c + 1] == elevtationnum) {
+                    if (MathUtils.random(0, 4) == 4) {
+                        worldIntMap[r][c] = elevtationnum;
+                    } else {
+                        worldIntMap[r][c] = elevtationnum - 1;
+                    }
+                } else if (worldIntMap[r][c - 1] == elevtationnum) {
+                    if (MathUtils.random(0, 4) == 4) {
+                        worldIntMap[r][c] = elevtationnum;
+                    } else {
+                        worldIntMap[r][c] = elevtationnum - 1;
+                    }
+                } else {
+                    worldIntMap[r][c] = 20;
                 }
 
-
+            }
                 //worldIntMap[r][c] = MathUtils.random(TileHandler.getTileHandler().getWorldTileArray().size-1);
             }
+            elevtationnum--;
+            islandBuild();
         }
-        elevtationnum--;
-        islandBuild();
+
 
     }
 
