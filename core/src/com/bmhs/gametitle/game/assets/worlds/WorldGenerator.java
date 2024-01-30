@@ -30,12 +30,12 @@ public class WorldGenerator {
         worldIntMap = new int[worldMapRows][worldMapColumns];
         createBackground();
 
-        for (int seednum = 0; seednum < 5; seednum++) {
+        for (int seednum = 0; seednum < 7; seednum++) {
             Vector2 mapseed = new Vector2(MathUtils.random(worldIntMap[0].length), MathUtils.random(worldIntMap.length));
             System.out.println(mapseed.y + " " + mapseed.x);
 
-                for (int r = 0; r < worldIntMap.length; r++) {
-                    for (int c = 0; c < worldIntMap[r].length; c++) {
+                for (int r = 1; r < worldIntMap.length - 1; r++) {
+                    for (int c = 1; c < worldIntMap[r].length - 1; c++) {
                         Vector2 tempvector = new Vector2(c, r);
                         if (tempvector.dst(mapseed) < 1) {
                             worldIntMap[r][c] = elevtationnum;
@@ -77,7 +77,7 @@ public class WorldGenerator {
     protected int currentelevation = elevtationnum;
     public void islandBuild() {
 
-        while(currentelevation > 0) {
+        while(currentelevation > 3) {
             for (int r = 1; r < worldIntMap.length - 2; r++) {
                 for (int c = 1; c < worldIntMap[r].length - 2; c++) {
                     if (worldIntMap[r + 1][c] == currentelevation) {
