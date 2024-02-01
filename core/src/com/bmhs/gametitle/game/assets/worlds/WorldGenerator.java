@@ -80,7 +80,7 @@ public class WorldGenerator {
         while(currentelevation > 3) {
             for (int r = 1; r < worldIntMap.length - 2; r++) {
                 for (int c = 1; c < worldIntMap[r].length - 2; c++) {
-                    if (worldIntMap[r + 1][c] == currentelevation) {
+                    if (worldIntMap[r][c + 1] == currentelevation) {
                         if(worldIntMap[r][c] < currentelevation) {
                             if (MathUtils.random(0, 4) == 4) {
                                 worldIntMap[r][c] = currentelevation;
@@ -88,7 +88,7 @@ public class WorldGenerator {
                                 worldIntMap[r][c] = currentelevation - 1;
                             }
                         }
-                    } else if (worldIntMap[r - 1][c] == currentelevation) {
+                    } else if (worldIntMap[r + 1][c] == currentelevation) {
                         if(worldIntMap[r][c] < currentelevation) {
                             if (MathUtils.random(0, 4) == 4) {
                                 worldIntMap[r][c] = currentelevation;
@@ -96,7 +96,7 @@ public class WorldGenerator {
                                 worldIntMap[r][c] = currentelevation - 1;
                             }
                         }
-                    } else if (worldIntMap[r][c + 1] == currentelevation) {
+                    } else if (worldIntMap[r - 1][c - 1] == currentelevation) {
                         if(worldIntMap[r][c] < currentelevation) {
                             if (MathUtils.random(0, 4) == 4) {
                                 worldIntMap[r][c] = currentelevation;
@@ -120,7 +120,7 @@ public class WorldGenerator {
                                 worldIntMap[r][c] = currentelevation - 1;
                             }
                         }
-                    } else if (worldIntMap[r - 1][c - 1] == currentelevation) {
+                    } else if (worldIntMap[r - 1][c + 1] == currentelevation) {
                         if(worldIntMap[r][c] < currentelevation) {
                             if (MathUtils.random(0, 4) == 4) {
                                 worldIntMap[r][c] = currentelevation;
@@ -128,7 +128,7 @@ public class WorldGenerator {
                                 worldIntMap[r][c] = currentelevation - 1;
                             }
                         }
-                    } else if (worldIntMap[r - 1][c + 1] == currentelevation) {
+                    } else if (worldIntMap[r - 1][c] == currentelevation) {
                         if(worldIntMap[r][c] < currentelevation) {
                             if (MathUtils.random(0, 4) == 4) {
                                 worldIntMap[r][c] = currentelevation;

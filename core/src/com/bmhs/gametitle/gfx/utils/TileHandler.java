@@ -15,7 +15,7 @@ public class TileHandler {
 
     private int spriteSheetHeight, spriteSheetWidth, spriteOnSheetHeight, spriteOnSheetWidth;
 
-    private final String primaryColorSheetPath = "primaryColorSheet.png";
+    private final String primaryColorSheetPath = "islandColorSheet.png";
 
     private Array<WorldTile> worldTileArray;
 
